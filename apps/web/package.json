@@ -1,0 +1,58 @@
+{
+  "name": "factoryproof-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev --host 127.0.0.1 --port 3000",
+    "build": "vite build",
+    "start": "wrangler dev --config dist/server/wrangler.json --port 3000 --persist-to .wrangler/state",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "dev:vinext": "vite dev --port 3001",
+    "build:vinext": "vite build",
+    "start:vinext": "wrangler dev --config dist/server/wrangler.json",
+    "deploy:vinext": "vinext-cloudflare deploy --config dist/server/wrangler.json",
+    "deploy": "vinext-cloudflare deploy --config dist/server/wrangler.json",
+    "db:local": "wrangler d1 migrations apply factoryproof-mvp --local",
+    "db:remote": "wrangler d1 migrations apply factoryproof-mvp --remote"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "^5.2.0",
+    "@fontsource-variable/manrope": "^5.2.0",
+    "@vinext/cloudflare": "^1.4.0",
+    "hono": "^4",
+    "lucide-react": "^0.468.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-server-dom-webpack": "^19.3.1",
+    "unpdf": "^1",
+    "vinext": "^1.4.6",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.70.1",
+    "@cloudflare/workers-types": "latest",
+    "@playwright/test": "^1.56.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6",
+    "@vitejs/plugin-rsc": "latest",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.4.6",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^8",
+    "vitest": "^5",
+    "wrangler": "^4"
+  },
+  "type": "module",
+  "overrides": {
+    "fflate": "^0.7.5"
+  }
+}

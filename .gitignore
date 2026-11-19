@@ -24,3 +24,12 @@ factoryproof-video/
 *-reference/
 .vercel/
 dist/
+.taste-skill/
+Demo Dataset for Testing/
+*.tsbuildinfo
+# Cloudflare generated state and local credentials
+.wrangler/
+.cloudflare/
+.dev.vars*
+node_modules.previous/
+package-lock.previous.json

@@ -1,9 +1,11 @@
 # FactoryProof AI
 
 Build source-grounded cross-buyer evidence reconciliation, never compliance certification.
-Next.js App Router lives in apps/web; FastAPI and deterministic rules in services/api.
+Next.js App Router with vinext lives in apps/web; Hono/TypeScript Workers API in apps/web/server.
+Cloudflare Workers, D1, private R2, and Queues are the primary deployment platform.
+services/api is a Python reference implementation, not the production backend.
 Python modules use absolute services.api imports. Run commands from repository root.
-Persist all application data through SQLAlchemy. Every query must enforce session tenant.
+Persist production application data through D1. Every query must enforce session tenant.
 Never make retrieval scores or LLM assertions a final verification decision.
 Every extracted fact needs an exact source passage and page; missing facts stay missing.
 Demo records and fictional buyer rules must remain visibly labeled synthetic.

@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "factoryproof-ai",
+  "compatibility_date": "2026-11-19",
+  "main": "worker.ts",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{"binding":"DB","database_name":"factoryproof-mvp","database_id":"bcc3c340-534e-4fb8-9958-93ddf3c615a7","migrations_dir":"migrations"}],
+  "queues": {"producers":[{"binding":"EXTRACTION","queue":"factoryproof-extraction"}],"consumers":[{"queue":"factoryproof-extraction","max_batch_size":1,"max_batch_timeout":1,"max_retries":2}]},
+  "triggers": {"crons":["0 * * * *"]},
+  "observability": {"enabled":true},
+  "assets": {
+    "directory": "dist/client",
+    "html_handling": "none",
+    "not_found_handling": "none",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/*",
+      "!/_next/static/*",
+      "!/*/_next/static/*",
+      "!/demo/*"
+    ]
+  }
+}
