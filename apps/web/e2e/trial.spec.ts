@@ -1,0 +1,36 @@
+import { test,expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+test('unauthenticated visitor completes synthetic trial; sources, report, isolation and reset',async({page,browser,baseURL})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/');await expect(page.getByRole('heading',{name:'Factory evidence. Every buyer’s conditions.'})).toBeVisible();
+ await page.screenshot({path:'test-results/landing-desktop.png',fullPage:true});
+ await page.getByRole('button',{name:'Try with Sample Documents'}).first().click();
+ await expect(page).toHaveURL(/workspace\/evidence/,{timeout:30000});
+ await expect(page.getByText('Synthetic Demonstration — Not an Official Compliance Assessment',{exact:true})).toBeVisible();
+ await expect(page.locator('.evidence-row')).toHaveCount(4);
+ await expect.poll(async()=>{const response=await page.request.get('/api/workspace');const data=await response.json();return data.documents.filter((d:{processing_status:string})=>d.processing_status==='ready').length;},{timeout:45000}).toBe(4);
+ await page.reload();
+ await page.getByRole('button',{name:/01_fire_drill_log.pdf/}).first().click();
+ await expect(page.getByRole('dialog')).toBeVisible();await expect(page.getByRole('dialog').getByText('2026-04-26',{exact:true}).first()).toBeVisible();
+ await page.getByRole('button',{name:'Original preview'}).click();
+ const frame=page.locator('iframe');await expect(frame).toBeVisible();const source=(await frame.getAttribute('src'))!;
+ const pdf=await page.request.get(source);expect(pdf.status()).toBe(200);expect(pdf.headers()['content-type']).toBe('application/pdf');expect((await pdf.body()).subarray(0,5).toString()).toBe('%PDF-');
+ await page.screenshot({path:'test-results/pdf-preview.png',fullPage:true});
+ await page.getByRole('button',{name:'Close evidence inspection'}).click();
+ await page.getByRole('link',{name:'Cross-buyer comparison',exact:true}).click();
+ await expect(page.getByRole('checkbox')).toHaveCount(2);for(const checkbox of await page.getByRole('checkbox').all())await expect(checkbox).toBeChecked();
+ await page.getByRole('button',{name:'Run AI Comparison'}).click();await expect(page.getByText('10 requirements checked')).toBeVisible();
+ const workspace=await (await page.request.get('/api/workspace')).json();
+ const golden=readFileSync(resolve(import.meta.dirname,'../../../datasets/evaluations/public-demo-transcribed.csv'),'utf8').trim().split(/\r?\n/).slice(1);
+ for(const row of golden){const [id,status,file]=row.split(',');const finding=workspace.run.findings.find((f:{requirement:{id:string}})=>f.requirement.id===id);expect(finding?.status,id).toBe(status);expect(finding.document_name||'',id).toBe(file);}
+ await page.screenshot({path:'test-results/comparison-desktop.png',fullPage:true});
+ const fire=page.locator('.comparison-row').filter({hasText:'Fire drill record'});await expect(fire.getByText('Insufficient',{exact:true})).toBeVisible();await expect(fire.getByText('Supported',{exact:true})).toBeVisible();await fire.locator('.finding-button').first().click();await expect(page.getByRole('dialog').getByText('2026-04-26 is outside the 6-month window (from 2026-06-26).')).toBeVisible();await expect(page.getByRole('dialog').getByText('Page 1',{exact:true}).first()).toBeVisible();await page.keyboard.press('Escape');
+ await page.getByRole('link',{name:'Reports',exact:true}).click();const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Download demonstration report'}).first().click();const download=await downloadPromise;expect(download.suggestedFilename()).toContain('factoryproof');const reportPath=await download.path();expect(readFileSync(reportPath!,'utf8')).toContain('2026-12-26');
+ const outsider=await browser.newContext({baseURL});const guest=await outsider.newPage();await guest.goto('/');expect((await outsider.request.get(source)).status()).toBe(401);await guest.getByRole('button',{name:'Try with Sample Documents'}).first().click();await expect(guest).toHaveURL(/workspace\/evidence/);expect((await outsider.request.get(source)).status()).toBe(404);
+ expect((await page.request.post('/api/runs',{headers:{Origin:'https://attacker.invalid'},data:{reference_date:'2026-12-26'}})).status()).toBe(403);
+ const oldCookie=(await page.context().cookies()).find(c=>c.name==='fp_session')!;await page.getByRole('button',{name:'Reset demo',exact:true}).click();await expect(page).toHaveURL(/workspace\/evidence/);const reset=await (await page.request.get('/api/workspace')).json();expect(reset.run).toBeNull();expect(reset.documents).toHaveLength(4);expect(reset.documents.some((d:{id:string})=>d.id===workspace.documents[0].id)).toBe(false);
+ expect((await page.request.get('/api/workspace',{headers:{Cookie:`fp_session=${oldCookie.value}`}})).status()).toBe(401);
+ await page.setViewportSize({width:390,height:844});await page.goto('/');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);await page.screenshot({path:'test-results/landing-mobile.png',fullPage:true});await page.goto('/workspace/compare');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);await page.screenshot({path:'test-results/workspace-mobile.png',fullPage:true});
+ await page.goto('/docs');await expect(page.getByRole('heading',{name:'What actually runs'})).toBeVisible();await outsider.close();expect(errors).toEqual([]);
+});

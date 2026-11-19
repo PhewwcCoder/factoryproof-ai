@@ -11,6 +11,7 @@ class Requirement(BaseModel):
     text: str = Field(min_length=1, max_length=4000)
     evidence_type: str = Field(min_length=1, max_length=80)
     months: int | None = Field(default=None, ge=1, le=120)
+    days: int | None = Field(default=None, ge=1, le=3650)
     signatures: list[str] = Field(default_factory=list, max_length=20)
     scope: str = 'entire_factory'
     minimum_frequency: int | None = Field(default=None, ge=1, le=1000)
@@ -37,4 +38,4 @@ class BuyerInput(BaseModel):
 
 
 class RunInput(BaseModel):
-    reference_date: date = date(2026, 11, 1)
+    reference_date: date = date(2026, 12, 26)

@@ -1,6 +1,6 @@
 """Pure reproducible rules. Candidate ranking never grants support."""
 import calendar
-from datetime import date
+from datetime import date, timedelta
 
 from .schemas import Requirement
 
@@ -55,6 +55,10 @@ def verify(req: Requirement, evidence: dict | None, reference: date) -> dict:
                         accepted = parsed >= cutoff
                         check('date_window', 'SUPPORTED' if accepted else 'INSUFFICIENT',
                               f"{parsed.isoformat()} {'falls within' if accepted else 'is outside'} the {req.months}-month window (from {cutoff.isoformat()}).", field)
+                    if req.days and parsed <= reference:
+                        cutoff = reference - timedelta(days=req.days)
+                        check('date_window', 'SUPPORTED' if parsed >= cutoff else 'INSUFFICIENT',
+                              f'{parsed.isoformat()} is {(reference - parsed).days} days old; maximum {req.days} days.', field)
                 if field == 'expiry_date':
                     check('expiry', 'SUPPORTED' if parsed >= reference else 'INSUFFICIENT',
                           f'Valid until {parsed.isoformat()}; evaluated on {reference.isoformat()}.', field)
@@ -69,7 +73,8 @@ def verify(req: Requirement, evidence: dict | None, reference: date) -> dict:
         for signature in req.signatures:
             present = signature.lower() in [s.lower() for s in facts.get('signatures', [])]
             check('signature', 'SUPPORTED' if present else 'INSUFFICIENT',
-                  f"Required {signature} signature {'recorded' if present else 'not recorded'}.", 'signatures')
+                  f"Required {signature.replace('_', ' ')} signature {'recorded' if present else 'not recorded'}.",
+                  'signature:' + signature if 'signature:' + signature in evidence.get('citations', {}) else 'signatures')
         for field, threshold in [('frequency', req.minimum_frequency), ('value', req.minimum_value)]:
             if threshold is not None:
                 value = facts.get(field)

@@ -1,11 +1,11 @@
-# Architecture and implementation plan
+# Cloudflare-first, free-only MVP
 
-FactoryProof separates interpretation, candidate retrieval, deterministic constraints and human review.
+Next.js App Router runs through vinext on Workers; Hono routes share the same Worker. D1 stores tenants, sessions, versioned records, audit entries, rate counters and bounded original-document BLOBs. Queues handles PDF extraction. Hourly cleanup cascades deletion of expired demo tenants.
 
-The browser uses Next.js App Router and a same-origin /api reverse proxy. FastAPI authorizes an opaque, hashed, expiring session before every tenant-scoped operation. SQLAlchemy supports local SQLite and deployed PostgreSQL. Private files live outside the web root; an optional S3-compatible adapter supports R2. The local deployment is self-contained and requires no model API key.
+The final free-only instruction supersedes the earlier R2 preference. No R2 subscription or paid plan is activated. Private sources are limited to 1 MB, 100 pages, and 100 documents per tenant. Public trial creation is capped at 100/day globally; provider quotas fail rather than upgrade billing.
 
-Pipeline: validated PDF/text upload -> persisted processing state -> page-aware native extraction -> grounded structured facts -> lexical and latent-semantic retrieval -> deterministic checks -> versioned findings -> reviewer decisions -> preparation report. Unknown or ambiguous facts produce review outcomes. Scanned PDFs require OCR and are visibly flagged rather than silently treated as empty evidence.
+Pure domain rules: apps/web/server/domain.ts. Extraction: extraction.ts. Original storage: documents.ts. Persistence: store.ts. These boundaries permit future R2, PostgreSQL/pgvector, hosted models and Python workers without frontend changes. services/api retains the earlier Python reference implementation and is not deployed.
 
-Build order: (1) rules, data and API; (2) end-to-end workflows; (3) shared visual system and screens; (4) evaluation, browser QA and deployment preparation. PostgreSQL migrations and container deployment must use the same domain logic as the local demo.
+Pipeline: validated upload -> private original -> queued extraction -> actual page text -> source-cited facts -> type-filtered candidates -> deterministic checks of every candidate -> versioned findings -> review -> report. Type matching never establishes support. Unsupported extraction, ambiguous facts and conflicts require review.
 
-Reference date is 2026-11-01 for synthetic demonstrations. The fire drill is dated 2026-03-01. Buyers Northstar Apparel (6 months) and Loom & Field (12 months) are fictional. Human review records decisions without overwriting deterministic results.
+The public demonstration uses four supplied PDFs and two fictional buyer checklists transcribed from the contact sheet. Assessment date: 2026-12-26. No evaluation CSV is imported by application code. Isolated sessions prevent visitor data mixing. Reset revokes the old session and creates a new tenant. Public uploads are disabled; private uploads require a provisioned account.
