@@ -1,0 +1,11 @@
+requirement_id,expected_status,document_filename,source_page,reason
+A-FIRE-01,INSUFFICIENT,01_fire_drill_log.pdf,1,April 26 is outside six calendar months before December 26
+B-FIRE-01,SUPPORTED,01_fire_drill_log.pdf,1,April 26 is inside twelve calendar months and safety officer sign-off is present
+A-TRAIN-01,SUPPORTED,02_safety_training_record.pdf,1,November 12 training has 27 attendees and both required sign-offs
+B-TRAIN-01,SUPPORTED,02_safety_training_record.pdf,1,27 attendees exceed the 25 threshold and both sign-offs are present
+A-ELEC-01,INSUFFICIENT,03_electrical_inspection_certificate.pdf,1,Certificate expired November 30 before assessment
+B-ELEC-01,INSUFFICIENT,03_electrical_inspection_certificate.pdf,1,Certificate expired November 30 before assessment
+A-COMMITTEE-01,SUPPORTED,04_safety_committee_minutes.pdf,1,November 5 is within 90 days and management signature is present
+B-COMMITTEE-01,INSUFFICIENT,04_safety_committee_minutes.pdf,1,Worker representative signature is explicitly NOT PROVIDED
+A-WAGE-01,MISSING,,,No wage document exists in the supplied evidence set
+B-WAGE-01,MISSING,,,No wage document exists in the supplied evidence set

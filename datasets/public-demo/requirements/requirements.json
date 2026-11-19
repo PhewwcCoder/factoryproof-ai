@@ -1,0 +1,223 @@
+[
+  {
+    "id": "A-FIRE-01",
+    "buyer_id": "buyer-a",
+    "title": "Fire drill record",
+    "text": "Fire drill record within previous 6 calendar months; safety officer sign-off required.",
+    "evidence_type": "fire_drill",
+    "months": 6,
+    "days": null,
+    "signatures": [
+      "safety_officer"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "A-TRAIN-01",
+    "buyer_id": "buyer-a",
+    "title": "Safety training",
+    "text": "Safety training within previous 12 months; at least 20 attendees; trainer and safety officer sign-off required.",
+    "evidence_type": "safety_training",
+    "months": 12,
+    "days": null,
+    "signatures": [
+      "trainer",
+      "safety_officer"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": 20.0,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "A-ELEC-01",
+    "buyer_id": "buyer-a",
+    "title": "Electrical inspection",
+    "text": "Electrical inspection certificate must be valid on assessment date; inspector sign-off required.",
+    "evidence_type": "electrical_inspection",
+    "months": null,
+    "days": null,
+    "signatures": [
+      "inspector"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date",
+      "expiry_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "A-COMMITTEE-01",
+    "buyer_id": "buyer-a",
+    "title": "Safety committee minutes",
+    "text": "Safety committee minutes within previous 90 days; management chair sign-off required.",
+    "evidence_type": "worker_committee",
+    "months": null,
+    "days": 90,
+    "signatures": [
+      "management_chair"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "A-WAGE-01",
+    "buyer_id": "buyer-a",
+    "title": "Wage summary",
+    "text": "Wage summary covering 2026-09, 2026-10 and 2026-11 must be available.",
+    "evidence_type": "wage_register",
+    "months": null,
+    "days": null,
+    "signatures": [],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": "2026-09-01",
+    "period_end": "2026-11-30",
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "B-FIRE-01",
+    "buyer_id": "buyer-b",
+    "title": "Fire drill record",
+    "text": "Fire drill record within previous 12 calendar months; safety officer sign-off required.",
+    "evidence_type": "fire_drill",
+    "months": 12,
+    "days": null,
+    "signatures": [
+      "safety_officer"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "B-TRAIN-01",
+    "buyer_id": "buyer-b",
+    "title": "Safety training",
+    "text": "Safety training within previous 12 months; at least 25 attendees; trainer and safety officer sign-off required.",
+    "evidence_type": "safety_training",
+    "months": 12,
+    "days": null,
+    "signatures": [
+      "trainer",
+      "safety_officer"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": 25.0,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "B-ELEC-01",
+    "buyer_id": "buyer-b",
+    "title": "Electrical inspection",
+    "text": "Electrical inspection certificate must be valid on assessment date; inspector sign-off required.",
+    "evidence_type": "electrical_inspection",
+    "months": null,
+    "days": null,
+    "signatures": [
+      "inspector"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date",
+      "expiry_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "B-COMMITTEE-01",
+    "buyer_id": "buyer-b",
+    "title": "Safety committee minutes",
+    "text": "Safety committee minutes within previous 90 days; BOTH management chair and worker representative sign-off required.",
+    "evidence_type": "worker_committee",
+    "months": null,
+    "days": 90,
+    "signatures": [
+      "management_chair",
+      "worker_representative"
+    ],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": null,
+    "period_end": null,
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  },
+  {
+    "id": "B-WAGE-01",
+    "buyer_id": "buyer-b",
+    "title": "Wage summary",
+    "text": "Wage summary covering 2026-09, 2026-10 and 2026-11 must be available.",
+    "evidence_type": "wage_register",
+    "months": null,
+    "days": null,
+    "signatures": [],
+    "scope": "Demo Threadworks Ltd. / Production Unit A",
+    "minimum_frequency": null,
+    "minimum_value": null,
+    "mandatory_fields": [
+      "event_date"
+    ],
+    "period_start": "2026-09-01",
+    "period_end": "2026-11-30",
+    "source_reference": "User-supplied contact-sheet.png: fictional buyer checklist; manually transcribed (original JSON not supplied)",
+    "version": 1
+  }
+]
